@@ -88,11 +88,20 @@ class _ViewModel extends Equatable {
 
   static fromStore(Store<AppState> store) {
     return _ViewModel(
-      enterUser: (String userName) =>
-          store.dispatch(UserAction(userName: userName)),
-      enterEmail: (email) => store.dispatch(UserAction(email: email)),
-      enterPassword: (password) =>
-          store.dispatch(UserAction(password: password)),
+      enterUser: (String userName) => store.dispatch(UserAction(
+        userName: userName,
+        email: store.state.userState.email,
+        password: store.state.userState.password,
+      )),
+      enterEmail: (email) => store.dispatch(UserAction(
+        userName: store.state.userState.name,
+        email: email,
+        password: store.state.userState.password,
+      )),
+      enterPassword: (password) => store.dispatch(UserAction(
+          userName: store.state.userState.name,
+          email: store.state.userState.email,
+          password: password)),
     );
   }
 }
